@@ -1,3 +1,209 @@
+## Python下载
+
+### 环境搭建
+
+	```
+	Python官网：https://www.python.org/
+	 
+	Python文档下载地址：https://www.python.org/doc/
+
+	PyCharm 下载地址 : https://www.jetbrains.com/pycharm/download/
+	
+	激活码: (https://vrg123.com/)
+	P6DOCP5K0L-eyJsaWNlbnNlSWQiOiJQNkRPQ1A1SzBMIiwibGljZW5zZWVOYW1lIjoi5rC45LmF5r+A5rS7IHd3d8K3YWppaHVvwrdjb20iLCJhc3NpZ25lZU5hbWUiOiIiLCJhc3NpZ25lZUVtYWlsIjoiIiwibGljZW5zZVJlc3RyaWN0aW9uIjoiIiwiY2hlY2tDb25jdXJyZW50VXNlIjpmYWxzZSwicHJvZHVjdHMiOlt7ImNvZGUiOiJQQyIsInBhaWRVcFRvIjoiMjAyMi0wOS0xNCIsImV4dGVuZGVkIjpmYWxzZX0seyJjb2RlIjoiUFBDIiwicGFpZFVwVG8iOiIyMDIyLTA5LTE0IiwiZXh0ZW5kZWQiOnRydWV9LHsiY29kZSI6IlBXUyIsInBhaWRVcFRvIjoiMjAyMi0wOS0xNCIsImV4dGVuZGVkIjp0cnVlfSx7ImNvZGUiOiJQU0kiLCJwYWlkVXBUbyI6IjIwMjItMDktMTQiLCJleHRlbmRlZCI6dHJ1ZX0seyJjb2RlIjoiUENXTVAiLCJwYWlkVXBUbyI6IjIwMjItMDktMTQiLCJleHRlbmRlZCI6dHJ1ZX1dLCJtZXRhZGF0YSI6IjAxMjAyMjA4MTVQU0FNMDAwMDA1IiwiaGFzaCI6IjM2NzQwNTUyLzA6ODI0MjcxOTg2IiwiZ3JhY2VQZXJpb2REYXlzIjo3LCJhdXRvUHJvbG9uZ2F0ZWQiOmZhbHNlLCJpc0F1dG9Qcm9sb25nYXRlZCI6ZmFsc2V9-a7c7c75iYYkJ6zhapACqMh+HvQ0xIEOeRp4QmiLrFyAKuolQiK9QEu9gg70hXNo8uw/esp7qB7icb9LEb/dpy0Nv9EC1okGcPKqB0mOwn1L7oOL9yvMsXMlTxST0njkApbQ2Fe9K18F4QDglCaGKS+2RsYs38Kvu3krlI9Zjdmo2CYoYXHJ0h1b4tIVA4UQxo5mlqCElC6tkIIuF7u2AksXsv4Mu0/K1vazBXUPGhiEAJZ5O9kFZAfnFpE1xjHn/S9qT3bSmR9aYiZXm1wPTn2fuPd8lakZEE4Toay5d/oPt8PMNcIty3BHUKB2+3hOrdgSEcukfC6s3situx8WZuA==-MIIETDCCAjSgAwIBAgIBDTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTIwMTAxOTA5MDU1M1oXDTIyMTAyMTA5MDU1M1owHzEdMBsGA1UEAwwUcHJvZDJ5LWZyb20tMjAyMDEwMTkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDCP4uk4SlVdA5nuA3DQC+NsEnZS9npFnO0zrmMWcz1++q2UWJNuGTh0rwi+3fUJIArfvVh7gNtIp93rxjtrQAuf4/Fa6sySp4c32MeFACfC0q+oUoWebhOIaYTYUxm4LAZ355vzt8YeDPmvWKxA81udqEk4gU9NNAOz1Um5/8LyR8SGsSc4EDBRSjcMWMwMkYSauGqGcEUK8WhfplsyF61lKSOFA6VmfUmeDK15rUWWLbOMKgn2cxFA98A+s74T9Oo96CU7rp/umDXvhnyhAXSukw/qCGOVhwKR8B6aeDtoBWQgjnvMtPgOUPRTPkPGbwPwwDkvAHYiuKJ7Bd2wH7rAgMBAAGjgZkwgZYwCQYDVR0TBAIwADAdBgNVHQ4EFgQUJNoRIpb1hUHAk0foMSNM9MCEAv8wSAYDVR0jBEEwP4AUo562SGdCEjZBvW3gubSgUouX8bOhHKQaMBgxFjAUBgNVBAMMDUpldFByb2ZpbGUgQ0GCCQDSbLGDsoN54TATBgNVHSUEDDAKBggrBgEFBQcDATALBgNVHQ8EBAMCBaAwDQYJKoZIhvcNAQELBQADggIBAB2J1ysRudbkqmkUFK8xqhiZaYPd30TlmCmSAaGJ0eBpvkVeqA2jGYhAQRqFiAlFC63JKvWvRZO1iRuWCEfUMkdqQ9VQPXziE/BlsOIgrL6RlJfuFcEZ8TK3syIfIGQZNCxYhLLUuet2HE6LJYPQ5c0jH4kDooRpcVZ4rBxNwddpctUO2te9UU5/FjhioZQsPvd92qOTsV+8Cyl2fvNhNKD1Uu9ff5AkVIQn4JU23ozdB/R5oUlebwaTE6WZNBs+TA/qPj+5/wi9NH71WRB0hqUoLI2AKKyiPw++FtN4Su1vsdDlrAzDj9ILjpjJKA1ImuVcG329/WTYIKysZ1CWK3zATg9BeCUPAV1pQy8ToXOq+RSYen6winZ2OO93eyHv2Iw5kbn1dqfBw1BuTE29V2FJKicJSu8iEOpfoafwJISXmz1wnnWL3V/0NxTulfWsXugOoLfv0ZIBP1xH9kmf22jjQ2JiHhQZP7ZDsreRrOeIQ/c4yR8IQvMLfC0WKQqrHu5ZzXTH4NO3CwGWSlTY74kE91zXB5mwWAx1jig+UXYc2w4RkVhy0//lOmVya/PEepuuTTI4+UJwC7qbVlh5zfhj8oTNUXgN0AOc+Q0/WFPl1aw5VV/VrO8FCoB15lFVlpKaQ1Yh+DVU8ke+rt9Th0BCHXe0uZOEmH0nOnH/0onD
+
+* 出现问题:
+
+``` 
+因为在此系统上禁止运行脚本
+win + x 以管理员身份运行PowerShell
+输入set-executionpolicy remotesigned，设置成Y即可   
+```
+## python基础语法
+
+### 基础语法
+Python 可以同一行显示多条语句，方法是用分号 ; 分开
+
+Python 中的标识符是区分大小写的
+
+以下划线开头的标识符是有特殊意义的。以单下划线开头 _foo 的代表不能直接访问的类属性，需通过类提供的接口进行访问，不能用 from xxx import * 而导入。
+
+Python 的代码块不使用大括号 {} 来控制类，函数以及其他逻辑判断。python 最具特色的就是用缩进来写模块。
+
+缩进的空白数量是可变的，但是所有代码块语句必须包含相同的缩进空白数量，这个必须严格执行
+
+Python语句中一般以新行作为语句的结束符但是我们可以使用斜杠（ \）将一行的语句分为多行显示，如下所示：
+	days = ['Monday', 'Tuesday', 'Wednesday',
+			'Thursday', 'Friday']
+			
+	total = item_one + \
+			item_two + \
+			item_three
+
+Python 可以使用引号( ' )、双引号( " )、三引号( ''' 或 """ ) 来表示字符串，引号的开始与结束必须是相同类型的。
+
+其中三引号可以由多行组成，编写多行文本的快捷语法，常用于文档字符串，在文件的特定地点，被当做注释。
+
+## 变量类型
+
+### 多变量赋值
+
+	a, b, c = 1, 2, "john"
+	a = b = c = 1
+
+### 五个标准的数据类型
+* Numbers（数字）
+* String（字符串）
+* List（列表）
+* Tuple（元组）
+* Dictionary（字典）
+
+### python数字
+
+	a=1
+	b=2
+	#删除
+	del var1,var2
+#### python支持的数字类型
+int（有符号整型）
+
+long（长整型，也可以代表八进制和十六进制）
+
+float（浮点型）
+
+complex（复数）
+
+### python字符串
+
+#### python的字串列表有2种取值顺序:
+
+* 从左到右索引默认0开始的，最大范围是字符串长度少1
+* 从右到左索引默认-1开始的，最大范围是字符串开头
+
+```
+str = 'Hello World!'
+ 
+print str           # 输出完整字符串
+print str[0]        # 输出字符串中的第一个字符
+print str[2:5]      # 输出字符串中第三个至第六个之间的字符串
+print str[2:]       # 输出从第三个字符开始的字符串
+print str * 2       # 输出字符串两次
+print str + "TEST"  # 输出连接的字符串
+```
+
+#### Python 列表截取可以接收第三个参数，参数作用是截取的步长，以下实例在索引 1 到索引 4 的位置并设置为步长为 2（间隔一个位置）来截取字符串：
+	letters=['a','b','c','d','e','f']
+	letters[1:4:2]
+	['b','d']
+
+### python列表
+操作同python字符串一样
+```
+list = [ 'runoob', 786 , 2.23, 'john', 70.2 ]
+tinylist = [123, 'john']
+ 
+print list               # 输出完整列表
+print list[0]            # 输出列表的第一个元素
+print list[1:3]          # 输出第二个至第三个元素 
+print list[2:]           # 输出从第三个开始至列表末尾的所有元素
+print tinylist * 2       # 输出列表两次
+print list + tinylist    # 打印组合的列表
+```
+
+### python元租
+同列表比较,操作基本相同,不同之处是元租的数据不能被改变
+
+```
+tuple = ( 'runoob', 786 , 2.23, 'john', 70.2 )
+tinytuple = (123, 'john')
+ 
+print tuple               # 输出完整元组
+print tuple[0]            # 输出元组的第一个元素
+print tuple[1:3]          # 输出第二个至第四个（不包含）的元素 
+print tuple[2:]           # 输出从第三个开始至列表末尾的所有元素
+print tinytuple * 2       # 输出元组两次
+print tuple + tinytuple   # 打印组合的元组
+
+#---无效操作如下代码
+tuple = ( 'runoob', 786 , 2.23, 'john', 70.2 )
+list = [ 'runoob', 786 , 2.23, 'john', 70.2 ]
+tuple[2] = 1000    # 元组中是非法应用
+list[2] = 1000     # 列表中是合法应用
+```
+
+### python字典
+
+字典(dictionary)是除列表以外python之中最灵活的内置数据结构类型。列表是有序的对象集合，字典是无序的对象集合。
+两者之间的区别在于：字典当中的元素是通过键来存取的，而不是通过偏移存取。
+
+```
+dict = {}
+dict['one'] = "This is one"
+dict[2] = "This is two"
+ 
+tinydict = {'name': 'runoob','code':6734, 'dept': 'sales'}
+ 
+ 
+print dict['one']          # 输出键为'one' 的值
+print dict[2]              # 输出键为 2 的值
+print tinydict             # 输出完整的字典
+print tinydict.keys()      # 输出所有键
+print tinydict.values()    # 输出所有值
+```
+
+### python数据类型转换
+
+有时候，我们需要对数据内置的类型进行转换，数据类型的转换，你只需要将数据类型作为函数名即可。
+
+
+函数|描述
+----|----
+int(x [,base])|将x转换为一个整数
+long(x [,base] )|将x转换为一个长整数
+float(x)|将x转换到一个浮点数
+complex(real [,imag])|创建一个复数
+str(x)|将对象 x 转换为字符串
+repr(x)|将对象 x 转换为表达式字符串
+eval(str)|用来计算在字符串中的有效Python表达式,并返回一个对象
+tuple(s)|将序列 s 转换为一个元组
+list(s)|将序列 s 转换为一个列表
+set(s)|转换为可变集合
+dict(d)|创建一个字典。d 必须是一个序列 (key,value)元组。
+frozenset(s)|转换为不可变集合
+chr(x)|将一个整数转换为一个字符
+unichr(x)|将一个整数转换为Unicode字符
+ord(x)|将一个字符转换为它的整数值
+hex(x)|将一个整数转换为一个十六进制字符串
+oct(x)|将一个整数转换为一个八进制字符串 
+
+
+
+## python算术运算符
+
+### python算术运算符
+
+运算符	|描述	|实例
+:----- |:-----|:-----
++|加 - 两个对象相加	|a + b 输出结果 30
+-|减 - 得到负数或是一个数减去另一个数	|a - b 输出结果 -10
+*|乘 - 两个数相乘或是返回一个被重复若干次的字符串	|a * b 输出结果 200
+/|除 - x除以y	|b / a 输出结果 2
+%|取模 - 返回除法的余数	|b % a 输出结果 0
+|**|幂 - 返回x的y次幂	|a**b 为10的20次方， 输出结果 100000000000000000000
+//|取整除 - 返回商的整数部分（向下取整）| 9//2 = 4     , -9//2 = -5
+
+### python比较运算符
+
+运算符|	描述|		实例
+-|-|
+==|		等于 - 比较对象是否相等|		(a == b) 返回 False。
+!=|		不等于 - 比较两个对象是否不相等|		(a != b) 返回 True。
+<>|		不等于 - 比较两个对象是否不相等。python3 已废弃。	|	(a <> b) 返回 True。这个运算符类似 != 。
+|>|	大于 - 返回x是否大于y |		(a > b) 返回 False。|
+<|		小于 - 返回x是否小于y。所有比较运算符返回1表示真，返回0表示假。这分别与特殊的变量 True 和 False 等价。|		(a < b) 返回 True。
+|>=|		大于等于 - 返回x是否大于等于y。|		(a >= b) 返回 False。|
+|<=|		小于等于 - 返回x是否小于等于y。|		(a <= b) 返回 True。|
+
 ## python运算符
 
 ### python 赋值运算符
