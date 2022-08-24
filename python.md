@@ -350,7 +350,7 @@ string.zfill(width)|返回长度为 width 的字符串，原字符串 string 右
 	letters[1:4:2]
 	['b','d']
 
-### Python列表
+### Python列表(List)
 操作同python字符串一样
 ```
 list = [ 'runoob', 786 , 2.23, 'john', 70.2 ]
@@ -363,6 +363,81 @@ print list[2:]           # 输出从第三个开始至列表末尾的所有元�
 print tinylist * 2       # 输出列表两次
 print list + tinylist    # 打印组合的列表
 ```
+#### 更新列表
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+list = []          ## 空列表
+list.append('Google')   ## 使用 append() 添加元素
+list.append('Runoob')
+print list
+```
+
+#### 删除列表
+
+```
+#!/usr/bin/python
+ 
+list1 = ['physics', 'chemistry', 1997, 2000]
+ 
+print list1
+del list1[2]
+print "After deleting value at index 2 : "
+print list1
+```
+
+#### Python列表脚本操作符
+
+列表对 + 和 * 的操作符与字符串相似。+ 号用于组合列表，* 号用于重复列表
+
+Python 表达式|	结果|	描述
+-|-|-
+len([1, 2, 3])|	3|	长度
+[1, 2, 3] + [4, 5, 6]|	[1, 2, 3, 4, 5, 6]|	组合
+['Hi!'] * 4|	['Hi!', 'Hi!', 'Hi!', 'Hi!']|	重复
+3 in [1, 2, 3]|	True|	元素是否存在于列表中
+for x in [1, 2, 3]: print x,|	1 2 3|	迭代
+
+#### Python列表截取
+
+```
+>>>L = ['Google', 'Runoob', 'Taobao']
+>>> L[2]
+'Taobao'
+>>> L[-2]
+'Runoob'
+>>> L[1:]
+['Runoob', 'Taobao']
+>>>
+```
+
+#### Python列表函数&方法
+
+函数
+
+序号|	函数|说明
+-|-|-
+1|	cmp(list1, list2)|比较两个列表的元素
+2|	len(list)|列表元素个数
+3|	max(list)|返回列表元素最大值
+4|	min(list)|返回列表元素最小值
+5|	list(seq)|将元组转换为列表
+
+方法
+
+序号|	方法|说明
+-|-|-
+1|	list.append(obj)|在列表末尾添加新的对象
+2|	list.count(obj)|统计某个元素在列表中出现的次数
+3|	list.extend(seq)|在列表末尾一次性追加另一个序列中的多个值（用新列表扩展原来的列表）
+4|	list.index(obj)|从列表中找出某个值第一个匹配项的索引位置
+5|	list.insert(index, obj)|将对象插入列表
+6|	list.pop([index=-1])|移除列表中的一个元素（默认最后一个元素），并且返回该元素的值
+7|	list.remove(obj)|移除列表中某个值的第一个匹配项
+8|	list.reverse()|反向列表中元素
+9|	list.sort(cmp=None, key=None, reverse=False)|对原列表进行排序
 
 ### Python元租
 同列表比较,操作基本相同,不同之处是元租的数据不能被改变
@@ -376,20 +451,54 @@ print tuple[0]            # 输出元组的第一个元素
 print tuple[1:3]          # 输出第二个至第四个（不包含）的元素 
 print tuple[2:]           # 输出从第三个开始至列表末尾的所有元素
 print tinytuple * 2       # 输出元组两次
-print tuple + tinytuple   # 打印组合的元组
+print tuple + tinytuple   # 打印组合的元组 创建一个新元组
 
 #---无效操作如下代码
 tuple = ( 'runoob', 786 , 2.23, 'john', 70.2 )
 list = [ 'runoob', 786 , 2.23, 'john', 70.2 ]
 tuple[2] = 1000    # 元组中是非法应用
 list[2] = 1000     # 列表中是合法应用
+
+
+ 
+tup = ('physics', 'chemistry', 1997, 2000)
+ 
+print tup
+del tup
+print "After deleting tup : "
+print tup   # NameError: name 'tup' is not defined
+```
+#### 无关闭分隔符
+
+任意无符号的对象，以逗号隔开，默认为元组，如下实例：
+
+```
+实例(Python 2.0+)
+#!/usr/bin/python
+ 
+print 'abc', -4.24e93, 18+6.6j, 'xyz'
+x, y = 1, 2
+print "Value of x , y : ", x,y
 ```
 
-### Python字典
+#### 元组内置函数
 
+
+序号|	方法|描述
+-|-|-
+1|	cmp(tuple1, tuple2)|比较两个元组元素。
+2|	len(tuple)|计算元组元素个数。
+3|	max(tuple)|返回元组中元素最大值。
+4|	min(tuple)|返回元组中元素最小值。
+5|	tuple(seq)|将列表转换为元组。
+
+### Python字典
+字典是另一种可变容器模型，且可存储任意类型对象。
+字典的每个键值 key:value 对用冒号 : 分割，每个键值对之间用逗号 , 分割，整个字典包括在花括号 {} 中 
 字典(dictionary)是除列表以外python之中最灵活的内置数据结构类型。列表是有序的对象集合，字典是无序的对象集合。
 两者之间的区别在于：字典当中的元素是通过键来存取的，而不是通过偏移存取。
 
+#### 访问
 ```
 dict = {}
 dict['one'] = "This is one"
@@ -404,6 +513,88 @@ print tinydict             # 输出完整的字典
 print tinydict.keys()      # 输出所有键
 print tinydict.values()    # 输出所有值
 ```
+
+#### 修改
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+tinydict = {'Name': 'Zara', 'Age': 7, 'Class': 'First'}
+ 
+tinydict['Age'] = 8 # 更新
+tinydict['School'] = "RUNOOB" # 添加
+ 
+ 
+print "tinydict['Age']: ", tinydict['Age']
+print "tinydict['School']: ", tinydict['School']
+```
+
+#### 删除
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+tinydict = {'Name': 'Zara', 'Age': 7, 'Class': 'First'}
+ 
+del tinydict['Name']  # 删除键是'Name'的条目
+tinydict.clear()      # 清空字典所有条目
+del tinydict          # 删除字典
+ 
+print "tinydict['Age']: ", tinydict['Age'] 
+print "tinydict['School']: ", tinydict['School']
+```
+
+#### 字典特性
+
+字典值可以没有限制地取任何 python 对象，既可以是标准的对象，也可以是用户定义的，但键不行。
+
+两个重要的点需要记住：
+
+1）不允许同一个键出现两次。创建时如果同一个键被赋值两次，后一个值会被记住，如下实例：
+
+```
+tinydict = {'Name': 'Runoob', 'Age': 7, 'Name': 'Manni'} 
+ 
+print "tinydict['Name']: ", tinydict['Name']
+```
+
+2）键必须不可变，所以可以用数字，字符串或元组充当，所以用列表就不行，如下实例：
+
+```
+#!/usr/bin/python
+ 
+tinydict = {['Name']: 'Zara', 'Age': 7} 
+ 
+print "tinydict['Name']: ", tinydict['Name']
+```
+
+#### 字典内置函数&方法
+
+序号|	函数及描述
+-|-
+1|	cmp(dict1, dict2)|比较两个字典元素。
+2|	len(dict)|计算字典元素个数，即键的总数。
+3|	str(dict)|输出字典可打印的字符串表示。
+4|	type(variable)|返回输入的变量类型，如果变量是字典就返回字典类型。
+
+内置方法
+
+序号|	函数|描述
+-|-|-
+1|	dict.clear()|删除字典内所有元素
+2|	dict.copy()|返回一个字典的浅复制
+3|	dict.fromkeys(seq[, val])|创建一个新字典，以序列 seq 中元素做字典的键，val 为字典所有键对应的初始值
+4|	dict.get(key, default=None)|返回指定键的值，如果值不在字典中返回default值
+5|	dict.has_key(key)|如果键在字典dict里返回true，否则返回false
+6|	dict.items()|以列表返回可遍历的(键, 值) 元组数组
+7|	dict.keys()|以列表返回一个字典所有的键
+8|	dict.setdefault(key, default=None)|和get()类似, 但如果键不存在于字典中，将会添加键并将值设为default
+9|	dict.update(dict2)|把字典dict2的键/值对更新到dict里
+10|	dict.values()|以列表返回字典中的所有值
+11|	pop(key[,default])|删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值。
+12|	popitem()|返回并删除字典中的最后一对键和值。
 
 ### Python数据类型转换
 
