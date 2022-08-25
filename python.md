@@ -1162,7 +1162,1030 @@ Time 模块包含了以下内置函数，既有时间处理的，也有转换时
 
 Time模块包含了以下2个非常重要的属性：
 
-序号|	属性及描述
+序号|	属性|描述
 -|-
 1|	time.timezone|属性 time.timezone 是当地时区（未启动夏令时）距离格林威治的偏移秒数（>0，美洲<=0大部分欧洲，亚洲，非洲）。
 2|	time.tzname|属性time.tzname包含一对根据情况的不同而不同的字符串，分别是带夏令时的本地时区名称，和不带的。
+
+日历(Calendar) 模块
+
+序号|	函数|描述
+-|-|-
+1|	calendar.calendar(year,w=2,l=1,c=6)|返回一个多行字符串格式的year年年历，3个月一行，间隔距离为c。 每日宽度间隔为w字符。每行长度为21* W+18+2* C。l是每星期行数。
+2|	calendar.firstweekday( )|返回当前每周起始日期的设置。默认情况下，首次载入 calendar 模块时返回 0，即星期一。
+3|	calendar.isleap(year)|是闰年返回 True，否则为 False。 >>> import calendar  >>> print(calendar.isleap(2000))  True >>> print(calendar.isleap(1900))  False
+4|	calendar.leapdays(y1,y2)|返回在Y1，Y2两年之间的闰年总数。
+5|	calendar.month(year,month,w=2,l=1)|返回一个多行字符串格式的year年month月日历，两行标题，一周一行。每日宽度间隔为w字符。每行的长度为7* w+6。l是每星期的行数。
+6|	calendar.monthcalendar(year,month)|返回一个整数的单层嵌套列表。每个子列表装载代表一个星期的整数。Year年month月外的日期都设为0;范围内的日子都由该月第几日表示，从1开始。
+7|	calendar.monthrange(year,month)|返回两个整数。第一个是该月的星期几的日期码，第二个是该月的日期码。日从0（星期一）到6（星期日）;月从1到12。
+8|	calendar.prcal(year,w=2,l=1,c=6)|相当于 print calendar.calendar(year,w=2,l=1,c=6)。
+9|	calendar.prmonth(year,month,w=2,l=1)|相当于 print calendar.month(year,month,w=2,l=1) 。
+10|	calendar.setfirstweekday(weekday)|设置每周的起始日期码。0（星期一）到6（星期日）。
+11|	calendar.timegm(tupletime)|和time.gmtime相反：接受一个时间元组形式，返回该时刻的时间戳（1970纪元后经过的浮点秒数）。
+12|	calendar.weekday(year,month,day)|返回给定日期的日期码。0（星期一）到6（星期日）。月份为 1（一月） 到 12（12月）。
+
+## Python函数
+
+函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。
+
+### 定义函数
+
+* 函数代码块以 def 关键词开头，后接函数标识符名称和圆括号()。
+* 任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。
+* 函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。
+* 函数内容以冒号起始，并且缩进。
+* return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 定义函数
+def printme( str ):
+   "打印任何传入的字符串"
+   print str
+   return
+ 
+# 调用函数
+printme("我要调用用户自定义函数!")
+printme("再次调用同一函数")
+```
+
+### 参数
+
+在 python 中，类型属于对象，变量是没有类型的：
+
+```
+a=[1,2,3]
+ 
+a="Runoob"
+```
+
+以上代码中，[1,2,3] 是 List 类型，"Runoob" 是 String 类型，而变量 a 是没有类型，她仅仅是一个对象的引用（一个指针），可以是 List 类型对象，也可以指向 String 类型对象
+
+#### 可更改(mutable)与不可更改(immutable)对象
+
+在 python 中，strings, tuples, 和 numbers 是不可更改的对象，而 list,dict 等则是可以修改的对象。
+
+* 不可变类型：变量赋值 a=5 后再赋值 a=10，这里实际是新生成一个 int 值对象 10，再让 a 指向它，而 5 被丢弃，不是改变a的值，相当于新生成了a。
+* 可变类型：变量赋值 la=[1,2,3,4] 后再赋值 la[2]=5 则是将 list la 的第三个元素值更改，本身la没有动，只是其内部的一部分值被修改了。
+
+函数参数传递
+
+* 不可变类型 
+
+	```
+	类似 c++ 的值传递，如 整数、字符串、元组。如fun（a），传递的只是a的值，没有影响a对象本身。
+	比如在 fun（a）内部修改 a 的值，只是修改另一个复制的对象，不会影响 a 本身。
+	```
+* 可变类型 
+
+	```
+	类似 c++ 的引用传递，如 列表，字典。如 fun（la），则是将 la 真正的传过去，修改后fun外部的la也会受影响
+	```
+	
+python 中一切都是对象，严格意义我们不能说值传递还是引用传递，我们应该说传不可变对象和传可变对象
+
+可变对象示例:
+
+```
+实例(Python 2.0+)
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 可写函数说明
+def changeme( mylist ):
+   "修改传入的列表"
+   mylist.append([1,2,3,4])
+   print "函数内取值: ", mylist
+   return
+ 
+# 调用changeme函数
+mylist = [10,20,30]
+changeme( mylist )
+print "函数外取值: ", mylist
+```
+
+### 参数
+
+* 必备参数
+* 关键字参数
+* 默认参数
+* 不定长参数
+
+#### 必备参数	
+
+必备参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。
+
+调用printme()函数，你必须传入一个参数，不然会出现语法错误：
+
+```
+实例(Python 2.0+)
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+#可写函数说明
+def printme( str ):
+   "打印任何传入的字符串"
+   print str
+   return
+ 
+#调用printme函数
+printme()
+```
+
+```
+Traceback (most recent call last):
+  File "test.py", line 11, in <module>
+    printme()
+TypeError: printme() takes exactly 1 argument (0 given)
+```
+
+#### 关键字参数
+
+关键字参数和函数调用关系紧密，函数调用使用关键字参数来确定传入的参数值。
+
+使用关键字参数允许函数调用时参数的顺序与声明时不一致，因为 Python 解释器能够用参数名匹配参数值。
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+#可写函数说明
+def printme( str ):
+   "打印任何传入的字符串"
+   print str
+   return
+ 
+#调用printme函数
+printme( str = "My string")
+```
+
+#### 默认参数
+
+调用函数时，默认参数的值如果没有传入，则被认为是默认值。下例会打印默认的age，如果age没有被传入
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+#可写函数说明
+def printinfo( name, age = 35 ):
+   "打印任何传入的字符串"
+   print "Name: ", name
+   print "Age ", age
+   return
+ 
+#调用printinfo函数
+printinfo( age=50, name="miki" )
+printinfo( name="miki" )
+```
+
+#### 不定长参数
+
+你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，和上述2种参数不同，声明时不会命名。基本语法如下：
+
+```
+def functionname([formal_args,] *var_args_tuple ):
+   "函数_文档字符串"
+   function_suite
+   return [expression]
+```
+
+加了星号（*）的变量名会存放所有未命名的变量参数。不定长参数实例如下
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 可写函数说明
+def printinfo( arg1, *vartuple ):
+   "打印任何传入的参数"
+   print "输出: "
+   print arg1
+   for var in vartuple:
+      print var
+   return
+ 
+# 调用printinfo 函数
+printinfo( 10 )
+printinfo( 70, 60, 50 )
+```
+
+#### 匿名函数
+
+python 使用 lambda 来创建匿名函数。
+
+* lambda只是一个表达式，函数体比def简单很多。
+* lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。
+* lambda函数拥有自己的命名空间，且不能访问自有参数列表之外或全局命名空间里的参数。
+* 虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。
+
+##### 语法
+
+ lambda函数的语法只包含一个语句，如下:
+ 
+ ```
+ lambda [arg1 [,arg2,.....argn]]:expression
+ ```
+ 
+ ```
+ 实例(Python 2.0+)
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 可写函数说明
+sum = lambda arg1, arg2: arg1 + arg2
+ 
+# 调用sum函数
+print "相加后的值为 : ", sum( 10, 20 )
+print "相加后的值为 : ", sum( 20, 20 )
+ ```
+#### return 
+
+eturn语句[表达式]退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None
+
+```
+实例(Python 2.0+)
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 可写函数说明
+def sum( arg1, arg2 ):
+   # 返回2个参数的和."
+   total = arg1 + arg2
+   print "函数内 : ", total
+   return total
+ 
+# 调用sum函数
+total = sum( 10, 20 )
+```
+
+####  变量作用域
+
+* 全局变量
+* 局部变量
+
+```
+实例(Python 2.0+)
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+total = 0 # 这是一个全局变量
+# 可写函数说明
+def sum( arg1, arg2 ):
+   #返回2个参数的和."
+   total = arg1 + arg2 # total在这里是局部变量.
+   print "函数内是局部变量 : ", total
+   return total
+ 
+#调用sum函数
+sum( 10, 20 )
+print "函数外是全局变量 : ", total
+```
+
+## Python 模块
+
+Python 模块(Module)，是一个 Python 文件，以 .py 结尾，包含了 Python 对象定义和Python语句。
+
+模块能定义函数，类和变量，模块里也能包含可执行的代码。
+
+```
+support.py 模块：
+def print_func( par ):
+   print "Hello : ", par
+   return
+```
+
+### import 语句
+
+模块的引入
+模块定义好后，我们可以使用 import 语句来引入模块，语法如下：
+
+```
+import module1[, module2[,... moduleN]]
+```
+
+当解释器遇到 import 语句，如果模块在当前的搜索路径就会被导入。
+
+搜索路径是一个解释器会先进行搜索的所有目录的列表。如想要导入模块 support.py，需要把命令放在脚本的顶端：
+
+ ```
+ test.py 文件代码：
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 导入模块
+import support
+ 
+# 现在可以调用模块里包含的函数了
+support.print_func("Runoob")
+ ```
+
+### from...import 语句
+
+Python 的 from 语句让你从模块中导入一个指定的部分到当前命名空间中。语法如下：
+
+```
+from modname import name1[, name2[, ... nameN]]
+```
+
+```
+例如，要导入模块 fib 的 fibonacci 函数，使用如下语句：
+
+from fib import fibonacci
+```
+
+### from…import* 语句
+
+把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：
+
+```
+from modname import *
+```
+
+```
+from math import *
+```
+
+### 搜索路径
+
+当你导入一个模块，Python 解析器对模块位置的搜索顺序是：
+
+1. 当前目录
+2. 如果不在当前目录，Python 则搜索在 shell 变量 PYTHONPATH 下的每个目录。
+3. 如果都找不到，Python会察看默认路径。UNIX下，默认路径一般为/usr/local/lib/python/。
+
+模块搜索路径存储在 system 模块的 sys.path 变量中。变量里包含当前目录，PYTHONPATH和由安装过程决定的默认目录。
+
+```
+Windows 系统:
+set PYTHONPATH=c:\python27\lib;
+
+在 UNIX 系统，典型的 PYTHONPATH 如下：
+set PYTHONPATH=/usr/local/lib/python
+```
+
+### 命名空间和作用域
+
+变量是拥有匹配对象的名字（标识符）。命名空间是一个包含了变量名称们（键）和它们各自相应的对象们（值）的字典。
+
+ 一个 Python 表达式可以访问局部命名空间和全局命名空间里的变量。如果一个局部变量和一个全局变量重名，则局部变量会覆盖全局变量。
+
+每个函数都有自己的命名空间。类的方法的作用域规则和通常函数的一样。
+
+Python 会智能地猜测一个变量是局部的还是全局的，它假设任何在函数内赋值的变量都是局部的。
+
+因此，如果要给函数内的全局变量赋值，必须使用 global 语句。
+
+global VarName 的表达式会告诉 Python， VarName 是一个全局变量，这样 Python 就不会在局部命名空间里寻找这个变量了。
+
+例如，我们在全局命名空间里定义一个变量 Money。我们再在函数内给变量 Money 赋值，然后 Python 会假定 Money 是一个局部变量。然而，我们并没有在访问前声明一个局部变量 Money，结果就是会出现一个 UnboundLocalError 的错误。取消 global 语句前的注释符就能解决这个问题
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+Money = 2000
+def AddMoney():
+   # 想改正代码就取消以下注释:
+   # global Money
+   Money = Money + 1
+ 
+print Money
+AddMoney()
+print Money
+```
+
+#### dir() 函数
+
+dir() 函数一个排好序的字符串列表，内容是一个模块里定义过的名字。
+
+返回的列表容纳了在一个模块里定义的所有模块，变量和函数。如下一个简单的实例：
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 导入内置math模块
+import math
+ 
+content = dir(math)
+ 
+print content;
+```
+
+#### globals() 和 locals() 函数
+
+根据调用地方的不同，globals() 和 locals() 函数可被用来返回全局和局部命名空间里的名字。
+
+如果在函数内部调用 locals()，返回的是所有能在该函数里访问的命名。
+
+如果在函数内部调用 globals()，返回的是所有在该函数里能访问的全局名字。
+
+两个函数的返回类型都是字典。所以名字们能用 keys() 函数摘取。
+
+
+#### reload() 函数
+
+ 当一个模块被导入到一个脚本，模块顶层部分的代码只会被执行一次。
+
+因此，如果你想重新执行模块里顶层部分的代码，可以用 reload() 函数。该函数会重新导入之前导入过的模块。语法如下：
+
+```
+reload(moudle_name)
+```
+
+在这里，module_name要直接放模块的名字，而不是一个字符串形式。比如想重载 hello 模块，如下：
+
+```
+reload(hello)
+```
+
+#### Python中的包
+
+包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的 Python 的应用环境。
+
+简单来说，包就是文件夹，但该文件夹下必须存在 __init__.py 文件, 该文件的内容可以为空。__init__.py 用于标识当前文件夹是一个包。
+
+考虑一个在 package_runoob 目录下的 runoob1.py、runoob2.py、__init__.py 文件，test.py 为测试调用包的代码，目录结构如下：
+
+```
+test.py
+package_runoob
+|-- __init__.py
+|-- runoob1.py
+|-- runoob2.py
+```
+
+package_runoob/runoob1.py
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+def runoob1():
+   print "I'm in runoob1"
+```
+
+package_runoob/runoob2.py
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+def runoob2():
+   print "I'm in runoob2"
+```
+
+package_runoob/__init__.py
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+if __name__ == '__main__':
+    print '作为主程序运行'
+else:
+    print 'package_runoob 初始化'
+```
+
+test.py
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 导入 Phone 包
+from package_runoob.runoob1 import runoob1
+from package_runoob.runoob2 import runoob2
+ 
+runoob1()
+runoob2()
+```
+
+## Python 文件I/O
+
+### 打印到屏幕
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+
+print "Python 是一个非常棒的语言，不是吗？"
+```
+
+### 读取键盘输入
+
+Python提供了两个内置函数从标准输入读入一行文本，默认的标准输入是键盘。如下：
+
+* raw_input
+* input
+
+#### raw_input函数 (2.x 可以使用  3.x以后废弃)
+
+aw_input([prompt]) 函数从标准输入读取一个行，并返回一个字符串（去掉结尾的换行符）：
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+ 
+str = raw_input("请输入：")
+print "你输入的内容是: ", str
+```
+
+#### input函数
+
+input([prompt]) 函数和 raw_input([prompt]) 函数基本类似，但是 input 可以接收一个Python表达式作为输入，并将运算结果返回。
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*- 
+ 
+str = input("请输入：")
+print "你输入的内容是: ", str
+```
+
+```
+请输入：[x*5 for x in range(2,10,2)]
+你输入的内容是:  [10, 20, 30, 40]
+```
+
+### 打开和关闭文件
+
+你可以用 file 对象做大部分的文件操作
+
+#### open函数
+
+你必须先用Python内置的open()函数打开一个文件，创建一个file对象，相关的方法才可以调用它进行读写
+
+语法:
+
+```
+file object = open(file_name [, access_mode][, buffering])
+```
+
+各个参数的细节如下：
+
+* file_name：file_name变量是一个包含了你要访问的文件名称的字符串值。
+* access_mode：access_mode决定了打开文件的模式：只读，写入，追加等。所有可取值见如下的完全列表。这个参数是非强制的，默认文件访问模式为只读(r)。
+* buffering:如果buffering的值被设为0，就不会有寄存。如果buffering的值取1，访问文件时会寄存行。如果将buffering的值设为大于1的整数，表明了这就是的寄存区的缓冲大小。如果取负值，寄存区的缓冲大小则为系统默认。
+
+不同模式打开文件的完全列表：
+
+模式|	描述
+-|-
+t	|文本模式 (默认)。
+x	|写模式，新建一个文件，如果该文件已存在则会报错。
+b	|二进制模式。
+\+	|打开一个文件进行更新(可读可写)。
+U	|通用换行模式（不推荐）。
+r	|以只读方式打开文件。文件的指针将会放在文件的开头。这是默认模式。
+rb	|以二进制格式打开一个文件用于只读。文件指针将会放在文件的开头。这是默认模式。一般用于非文本文件如图片等。
+r+	|打开一个文件用于读写。文件指针将会放在文件的开头。
+rb+	|以二进制格式打开一个文件用于读写。文件指针将会放在文件的开头。一般用于非文本文件如图片等。
+w	|打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。
+wb	|以二进制格式打开一个文件只用于写入。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。
+w+	|打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。
+wb+	|以二进制格式打开一个文件用于读写。如果该文件已存在则打开文件，并从开头开始编辑，即原有内容会被删除。如果该文件不存在，创建新文件。一般用于非文本文件如图片等。
+a	|打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。
+ab	|以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。也就是说，新的内容将会被写入到已有内容之后。如果该文件不存在，创建新文件进行写入。
+a+	|打开一个文件用于读写。如果该文件已存在，文件指针将会放在文件的结尾。文件打开时会是追加模式。如果该文件不存在，创建新文件用于读写。
+ab+	|以二进制格式打开一个文件用于追加。如果该文件已存在，文件指针将会放在文件的结尾。如果该文件不存在，创建新文件用于读写。
+
+
+![文件模式](./img/file_modle.png)
+
+
+模式|	r|	r+|	w|	w+|	a|	a+
+--|--|--|--|--|--|--
+读|	+|	+||		+|	|	+
+写|		|+|	+|	+|	+|	+
+创建|	|	|	+|	+|	+|	+
+覆盖|	|	|	+|	+|	|	
+指针在开始	|+|	+|	+|	+|	|	
+指针在结尾|	|	|	|	|	+|	+
+
+### File 对象的属性
+
+一个文件被打开后，你有一个file对象，你可以得到有关该文件的各种信息。
+
+以下是和file对象相关的所有属性的列表：
+
+
+属性|	描述
+-|-
+file.closed	|返回true如果文件已被关闭，否则返回false。
+file.mode	|返回被打开文件的访问模式。
+file.name	|返回文件的名称。
+file.softspace	|如果用print输出后，必须跟一个空格符，则返回false。否则返回true。(python 3.x 不好使) 
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 打开一个文件
+fo = open("foo.txt", "w")
+print "文件名: ", fo.name
+print "是否已关闭 : ", fo.closed
+print "访问模式 : ", fo.mode
+print "末尾是否强制加空格 : ", fo.softspace
+```
+
+#### close()方法
+
+File 对象的 close（）方法刷新缓冲区里任何还没写入的信息，并关闭该文件，这之后便不能再进行写入。
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 打开一个文件
+fo = open("foo.txt", "w")
+print "文件名: ", fo.name
+ 
+# 关闭打开的文件
+fo.close()
+```
+
+#### write()方法
+
+write()方法可将任何字符串写入一个打开的文件。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。
+
+write()方法不会在字符串的结尾添加换行符('\n')：
+
+语法:
+
+```
+fileObject.write(string)
+```
+
+#### read() 方法
+
+read（）方法从一个打开的文件中读取一个字符串。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。
+
+语法:
+
+```
+fileObject.read([count])
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 打开一个文件
+fo = open("foo.txt", "r+")
+str = fo.read(10)  #读了10个字符 下次再读取会在11位置开始
+print "读取的字符串是 : ", str
+# 关闭打开的文件
+fo.close()
+```
+
+#### 文件定位
+
+tell()方法告诉你文件内的当前位置, 换句话说，下一次的读写会发生在文件开头这么多字节之后。
+
+seek（offset [,from]）方法改变当前文件的位置。Offset变量表示要移动的字节数。From变量指定开始移动字节的参考位置。
+
+如果from被设为0，这意味着将文件的开头作为移动字节的参考位置。如果设为1，则使用当前的位置作为参考位置。如果它被设为2，那么该文件的末尾将作为参考位置。
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+ 
+# 打开一个文件
+fo = open("foo.txt", "r+")
+str = fo.read(10)
+print "读取的字符串是 : ", str
+ 
+# 查找当前位置
+position = fo.tell()
+print "当前文件位置 : ", position
+ 
+# 把指针再次重新定位到文件开头
+position = fo.seek(0, 0)
+str = fo.read(10)
+print "重新读取字符串 : ", str
+# 关闭打开的文件
+fo.close()
+```
+
+### 重命名和删除文件
+
+Python的os模块提供了帮你执行文件处理操作的方法，比如重命名和删除文件。
+
+要使用这个模块，你必须先导入它，然后才可以调用相关的各种功能。
+
+#### rename() 方法
+
+rename() 方法需要两个参数，当前的文件名和新文件名。
+
+语法：
+
+```
+os.rename(current_file_name, new_file_name)
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+ 
+# 重命名文件test1.txt到test2.txt。
+os.rename( "test1.txt", "test2.txt" )
+```
+
+#### remove()方法
+
+你可以用remove()方法删除文件，需要提供要删除的文件名作为参数。
+
+语法：
+
+```
+os.remove(file_name)
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+ 
+# 删除一个已经存在的文件test2.txt
+os.remove("test2.txt")
+```
+
+### 目录
+
+#### mkdir()方法
+
+可以使用os模块的mkdir()方法在当前目录下创建新的目录们。你需要提供一个包含了要创建的目录名称的参数。
+
+语法：
+
+```
+os.mkdir("newdir")
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+ 
+# 创建目录test
+os.mkdir("test")
+```
+
+#### chdir()方法
+
+可以用chdir()方法来改变当前的目录。chdir()方法需要的一个参数是你想设成当前目录的目录名称。
+
+语法:
+
+```
+os.chdir("newdir")
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+ 
+# 将当前目录改为"/home/newdir"
+os.chdir("/home/newdir")
+```
+
+#### getcwd() 方法
+
+getcwd()方法显示当前的工作目录
+
+语法:
+
+```
+os.getcwd()
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+ 
+# 给出当前的目录
+print os.getcwd()
+```
+
+#### rmdir()方法
+
+rmdir()方法删除目录，目录名称以参数传递。
+
+在删除这个目录之前，它的所有内容应该先被清除。
+
+语法
+
+```
+os.rmdir('dirname')
+```
+
+```
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+ 
+# 删除”/tmp/test”目录
+os.rmdir( "/tmp/test"  )
+```
+
+## 文件方法
+
+### open() 方法
+
+Python open() 方法用于打开一个文件，并返回文件对象，在对文件进行处理过程都需要使用到这个函数，如果该文件无法被打开，会抛出 OSError。
+
+注意：使用 open() 方法一定要保证关闭文件对象，即调用 close() 方法。
+
+open() 函数常用形式是接收两个参数：文件名(file)和模式(mode)。
+
+```
+open(file, mode='r')
+```
+
+完整的语法格式为：
+
+```
+open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+```
+
+__参数说明:__
+
+* file: 必需，文件路径（相对或者绝对路径）。
+* mode: 可选，文件打开模式
+* buffering: 设置缓冲
+* encoding: 一般使用utf8
+* errors: 报错级别
+* newline: 区分换行符
+* closefd: 传入的file参数类型
+* opener: 设置自定义开启器，开启器的返回值必须是一个打开的文件描述符。
+
+
+### file对象常用函数
+
+序号	|方法 |描述
+-|-|-
+1	|file.close()|关闭文件。关闭后文件不能再进行读写操作。
+2	|file.flush()|刷新文件内部缓冲，直接把内部缓冲区的数据立刻写入文件, 而不是被动的等待输出缓冲区写入。
+3	|file.fileno()|返回一个整型的文件描述符(file descriptor FD 整型), 可以用在如os模块的read方法等一些底层操作上。
+4	|file.isatty()|如果文件连接到一个终端设备返回 True，否则返回 False。
+5	|file.next()|返回文件下一行。
+6	|file.read([size])|从文件读取指定的字节数，如果未给定或为负则读取所有。
+7	|file.readline([size])|读取整行，包括 "\n" 字符。
+8	|file.readlines([sizeint])|读取所有行并返回列表，若给定sizeint>0，则是设置一次读多少字节，这是为了减轻读取压力。
+9	|file.seek(offset[, whence])|设置文件当前位置
+10	|file.tell()|返回文件当前位置。
+11	|file.truncate([size])|截取文件，截取的字节通过size指定，默认为当前文件位置。
+12	|file.write(str)|将字符串写入文件，返回的是写入的字符长度。
+13	|file.writelines(sequence)|向文件写入一个序列字符串列表，如果需要换行则要自己加入每行的换行符。
+
+## Python 异常处理
+
+ python提供了两个非常重要的功能来处理python程序在运行中出现的异常和错误。你可以使用该功能来调试python程序。
+ 
+ * 异常处理
+ * 断言(Assertions)
+ 
+### python标准异常
+
+异常名称	|描述
+-|-
+BaseException|所有异常的基类
+SystemExit|解释器请求退出
+KeyboardInterrupt|用户中断执行(通常是输入^C)
+Exception|常规错误的基类
+StopIteration|迭代器没有更多的值
+GeneratorExit|生成器(generator)发生异常来通知退出
+StandardError|所有的内建标准异常的基类
+ArithmeticError|所有数值计算错误的基类
+FloatingPointError|浮点计算错误
+OverflowError|数值运算超出最大限制
+ZeroDivisionError|除(或取模)零 (所有数据类型)
+AssertionError|断言语句失败
+AttributeError|对象没有这个属性
+EOFError|没有内建输入,到达EOF 标记
+EnvironmentError|操作系统错误的基类
+IOError|输入/输出操作失败
+OSError|操作系统错误
+WindowsError|系统调用失败
+ImportError|导入模块/对象失败
+LookupError|无效数据查询的基类
+IndexError|序列中没有此索引(index)
+KeyError|映射中没有这个键
+MemoryError|内存溢出错误(对于Python 解释器不是致命的)
+NameError|未声明/初始化对象 (没有属性)
+UnboundLocalError|访问未初始化的本地变量
+ReferenceError|弱引用(Weak reference)试图访问已经垃圾回收了的对象
+RuntimeError|一般的运行时错误
+NotImplementedError|尚未实现的方法
+SyntaxError|Python 语法错误
+IndentationError|缩进错误
+TabError|Tab 和空格混用
+SystemError|一般的解释器系统错误
+TypeError|对类型无效的操作
+ValueError|传入无效的参数
+UnicodeError|Unicode 相关的错误
+UnicodeDecodeError|Unicode 解码时的错误
+UnicodeEncodeError|Unicode 编码时错误
+UnicodeTranslateError|Unicode 转换时错误
+Warning|警告的基类
+DeprecationWarning|关于被弃用的特征的警告
+FutureWarning|关于构造将来语义会有改变的警告
+OverflowWarning|旧的关于自动提升为长整型(long)的警告
+PendingDeprecationWarning|关于特性将会被废弃的警告
+RuntimeWarning|可疑的运行时行为(runtime behavior)的警告
+SyntaxWarning|可疑的语法的警告
+UserWarning|用户代码生成的警告
+
+### 异常处理
+
+捕捉异常可以使用try/except语句。
+
+try/except语句用来检测try语句块中的错误，从而让except语句捕获异常信息并处理。
+
+如果你不想在异常发生时结束你的程序，只需在try里捕获它。
+
+语法：
+
+以下为简单的try....except...else的语法：
+
+```
+try:
+<语句>        #运行别的代码
+except <名字>：
+<语句>        #如果在try部份引发了'name'异常
+except <名字>，<数据>:
+<语句>        #如果引发了'name'异常，获得附加的数据
+else:
+<语句>        #如果没有异常发生
+```
+
+try的工作原理是，当开始一个try语句后，python就在当前程序的上下文中作标记，这样当异常出现时就可以回到这里，try子句先执行，接下来会发生什么依赖于执行时是否出现异常。
+
+* 如果当try后的语句执行时发生异常，python就跳回到try并执行第一个匹配该异常的except子句，异常处理完毕，控制流就通过整个try语句（除非在处理异常时又引发新的异常）。
+* 如果在try后的语句里发生了异常，却没有匹配的except子句，异常将被递交到上层的try，或者到程序的最上层（这样将结束程序，并打印默认的出错信息）。
+* 如果在try子句执行时没有发生异常，python将执行else语句后的语句（如果有else的话），然后控制流通过整个try语句。
+
+```
+实例
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+try:
+    fh = open("testfile", "w")
+    fh.write("这是一个测试文件，用于测试异常!!")
+except IOError:
+    print "Error: 没有找到文件或读取文件失败"
+else:
+    print "内容写入文件成功"
+    fh.close()
+```
+
+```
+$ python test.py 
+内容写入文件成功
+$ cat testfile       # 查看写入的内容
+这是一个测试文件，用于测试异常!!
+```
+
+下面是简单的例子，它打开一个文件，在该文件中的内容写入内容，但文件没有写入权限，发生了异常：
+
+```
+实例
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+try:
+    fh = open("testfile", "w")
+    fh.write("这是一个测试文件，用于测试异常!!")
+except IOError:
+    print "Error: 没有找到文件或读取文件失败"
+else:
+    print "内容写入文件成功"
+    fh.close()
+```
+
+在执行代码前为了测试方便，我们可以先去掉 testfile 文件的写权限，命令如下：
+
+```
+chmod -w testfile
+```
+
+再执行以上代码：
+
+```
+$ python test.py 
+Error: 没有找到文件或读取文件失败  
+```
