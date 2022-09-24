@@ -21,6 +21,22 @@ win + x 以管理员身份运行PowerShell
 输入set-executionpolicy remotesigned，设置成Y即可   
 ```
 
+### Python VScode配置
+
+打开官网 https://code.visualstudio.com/
+
+
+
+### Python 环境变量
+
+
+变量名|	描述
+-|-
+PYTHONPATH	|PYTHONPATH是Python搜索路径，默认我们import的模块都会从PYTHONPATH里面寻找。
+PYTHONSTARTUP	|Python启动后，先寻找PYTHONSTARTUP环境变量，然后执行此变量指定的文件中的代码。
+PYTHONCASEOK	|加入PYTHONCASEOK的环境变量, 就会使python导入模块的时候不区分大小写.
+PYTHONHOME	|另一种模块搜索路径。它通常内嵌于的PYTHONSTARTUP或PYTHONPATH目录中，使得两个模块库更容易切换。
+
 ## Python基础语法
 
 ### 基础语法
@@ -65,6 +81,7 @@ Python 可以使用引号( ' )、双引号( " )、三引号( ''' 或 """ ) 来�
 * String（字符串）
 * List（列表）
 * Tuple（元组）
+* Set(集合)
 * Dictionary（字典）
 
 ### Python数字
@@ -2189,3 +2206,231 @@ chmod -w testfile
 $ python test.py 
 Error: 没有找到文件或读取文件失败  
 ```
+---
+# python3 和python2 差异
+
+1. print()   小括号必须带上
+
+2. 数据类型 支持 int float bool complex(复数) 没有Long
+
+* 不可变数据（3 个）：Number（数字）、String（字符串）、Tuple（元组）；
+* 可变数据（3 个）：List（列表）、Dictionary（字典）、Set（集合）。
+
+	```
+	>>> a, b, c, d = 20, 5.5, True, 4+3j
+	>>> print(type(a), type(b), type(c), type(d))
+	<class 'int'> <class 'float'> <class 'bool'> <class 'complex'>
+	```
+
+	```
+	>>> a = 111
+	>>> isinstance(a, int)
+	True
+	>>>
+	```
+	isinstance 和 type 的区别在于：
+
+	type()不会认为子类是一种父类类型。
+	
+	isinstance()会认为子类是一种父类类型。
+	
+	```
+	>>> class A:
+	...     pass
+	... 
+	>>> class B(A):
+	...     pass
+	... 
+	>>> isinstance(A(), A)
+	True
+	>>> type(A()) == A 
+	True
+	>>> isinstance(B(), A)
+	True
+	>>> type(B()) == A
+	False
+	```
+3. 数值运算
+	
+	数值的除法包含两个运算符：/ 返回一个浮点数，// 返回一个整数。
+	
+4. Set(集合)
+
+	集合（set）是由一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员。
+
+	基本功能是进行成员关系测试和删除重复元素。
+	
+	可以使用大括号 \{ \} 或者 set() 函数创建集合，注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。
+
+	创建格式
+	
+	```
+	parame = {value01,value02,...}
+	或者
+	set(value)
+	```
+	
+	```
+	实例
+	#!/usr/bin/python3
+
+	sites = {'Google', 'Taobao', 'Runoob', 'Facebook', 'Zhihu', 'Baidu'}
+
+	print(sites)   # 输出集合，重复的元素被自动去掉
+
+	# 成员测试
+	if 'Runoob' in sites :
+		print('Runoob 在集合中')
+	else :
+		print('Runoob 不在集合中')
+
+
+	# set可以进行集合运算
+	a = set('abracadabra')
+	b = set('alacazam')
+
+	print(a)
+
+	print(a - b)     # a 和 b 的差集
+
+	print(a | b)     # a 和 b 的并集
+
+	print(a & b)     # a 和 b 的交集
+
+	print(a ^ b)     # a 和 b 中不同时存在的元素
+	```
+	
+5. 	Python 推导式
+
+	Python 支持各种数据结构的推导式：
+
+	* 列表(list)推导式
+	* 字典(dict)推导式
+	* 集合(set)推导式
+	* 元组(tuple)推导式
+
+	__列表推导式__
+	
+	```
+	[表达式 for 变量 in 列表] 
+	[out_exp_res for out_exp in input_list]
+
+	或者 
+
+	[表达式 for 变量 in 列表 if 条件]
+	[out_exp_res for out_exp in input_list if condition]
+	```
+	
+	* out_exp_res：列表生成元素表达式，可以是有返回值的函数。
+	* for out_exp in input_list：迭代 input_list 将 out_exp 传入到 out_exp_res 表达式中。
+	* if condition：条件语句，可以过滤列表中不符合条件的值。
+	
+	```
+	实例
+	>>> names = ['Bob','Tom','alice','Jerry','Wendy','Smith']
+	>>> new_names = [name.upper()for name in names if len(name)>3]
+	>>> print(new_names)
+	['ALICE', 'JERRY', 'WENDY', 'SMITH']	
+	```
+	
+	__字典推导式__
+	
+	```
+	{ key_expr: value_expr for value in collection }
+
+	或
+
+	{ key_expr: value_expr for value in collection if condition }
+	```
+	
+	```
+	实例
+	listdemo = ['Google','Runoob', 'Taobao']
+	# 将列表中各字符串值为键，各字符串的长度为值，组成键值对
+	>>> newdict = {key:len(key) for key in listdemo}
+	>>> newdict
+	{'Google': 6, 'Runoob': 6, 'Taobao': 6}
+	```
+	
+	__集合推导式__
+	
+	```
+	{ expression for item in Sequence }
+	或
+	{ expression for item in Sequence if conditional }
+	```
+	
+	```
+	实例
+	>>> setnew = {i**2 for i in (1,2,3)}
+	>>> setnew
+	{1, 4, 9}
+	```
+	
+	```
+	实例
+	>>> a = {x for x in 'abracadabra' if x not in 'abc'}
+	>>> a
+	{'d', 'r'}
+	>>> type(a)
+	<class 'set'>
+	```
+	
+	__元组推导式（生成器表达式）__
+	
+	```
+	(expression for item in Sequence )
+	或
+	(expression for item in Sequence if conditional )
+	```
+	元组推导式和列表推导式的用法也完全相同，只是元组推导式是用 () 圆括号将各部分括起来，而列表推导式用的是中括号 []，另外元组推导式返回的结果是一个生成器对象。
+
+	例如，我们可以使用下面的代码生成一个包含数字 1~9 的元组：
+	
+	```
+	>>> a = (x for x in range(1,10))
+	>>> a
+	<generator object <genexpr> at 0x7faf6ee20a50>  # 返回的是生成器对象
+
+	>>> tuple(a)       # 使用 tuple() 函数，可以直接将生成器对象转换成元组
+	(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	```
+	
+6. Python 注释
+
+	Python 中单行注释以 # 开头，例如	
+
+	```
+	# 这是一个注释
+	print("Hello, World!")
+	```
+
+	多行注释用三个单引号 ''' 或者三个双引号 """ 将注释括起来，例如:
+
+	```
+	1、单引号（'''）
+	#!/usr/bin/python3 
+	'''
+	这是多行注释，用三个单引号
+	这是多行注释，用三个单引号 
+	这是多行注释，用三个单引号
+	'''
+	print("Hello, World!")
+	```
+
+	```
+	2、双引号（"""）
+	#!/usr/bin/python3 
+	"""
+	这是多行注释，用三个双引号
+	这是多行注释，用三个双引号 
+	这是多行注释，用三个双引号
+	"""
+	print("Hello, World!")
+	```
+	
+7. 运算符
+
+	/ 除  21/10=2.1
+	
+	:=  海象运算符，可在表达式内部为变量赋值。Python3.8 版本新增运算符。
