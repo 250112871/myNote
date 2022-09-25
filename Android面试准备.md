@@ -335,8 +335,131 @@ UI 卡顿
 		分配机制  
 		回收机制
 	Android 内存管理机制
-		 1. 分配机制 分配一个小额的内存 随着apk的运行在分配额外的内存 有上限  让更多的进程存活在内存中，当用户在启动apk的时候，只需要回复已有的进程，可以提高用户体验 
-		 2. 回收机制 前台进程 可见进程 后台进程 服务进程 空进程
+		1. 分配机制 分配一个小额的内存 随着apk的运行在分配额外的内存 有上限  让更多的进程存活在内存中，当用户在启动apk的时候，只需要回复已有的进程，可以提高用户体验 
+		2. 回收机制 前台进程 可见进程 后台进程 服务进程 空进程
 
 	内存管理机制的特点		
+		1. 更少的占用内存
+		2. 在合适的时候,合理的释放系统资源
+		3. 在系统内存紧张的情况下,能释放掉大部分不重要资源,为Android系统提供可用的内存
+		4. 能够在合理的在特殊生命周期中,保存或者还原重要数据,以至于系统能够正确的重新恢复改
 		
+内存优化
+	1. 当Service完成任务后,尽量停止它.
+	2. 在UI不可见的时候,释放掉一些只有UI使用的资源
+	3. 在系统内存紧张的时候,尽可能多的释放掉一些非重要的资源
+	4. 避免滥用Bitmap 
+	5. 使用针对内存优化过得数据容器 
+	6. 避免使用依赖注入的框架
+	7. 使用zip对齐的apk
+	8. 使用对进程
+
+内存溢出vs内存泄漏
+	1.内存溢出
+	2. 内存泄漏
+	
+冷启动
+	什么是冷启动
+		在应用启动前,系统中没有该应用的任何进程信息.
+	
+	2热启动
+		用户使用返回键退出应用,然后马上又重新启动应用.
+	
+冷启动时间的计算
+	应用启动开始计算,到完成视图的第一次绘制(即Activity内容对用户可见)为止
+	
+	冷启动流程
+		zygote进程中fork创建出一个新的进程
+		创建和初始化Application类,创建MainActivity类
+		inflate布局,当onCreate/onStart/onResume方法走完 
+		contentView的onmeasure/layout/draw 显示在界面上
+		
+		Application 的构造其方法->attachBaseContext()-> onCreate()->Activity的构造方法->onCreate()->配置主题中的背景等属性->onStart()->onResume()->测量布局绘制显示在界面
+		
+冷启动优化
+	1. 减少onCreate()方法的工作量  初始化操作可以放到 Application中
+	2. 不要让Application参与业务的操作
+	3. 不要再Application进行耗时操作
+	4. 不要以静态变量的方式在Application中保存数据
+	5. 布局/mainThread
+	
+其他优化
+	android中不用静态变量存储数据. 系统杀掉后悔重新启动此时 静态存储数据可能会不安全 
+	
+	sharepreference 问题 不要进行跨进程的操作,每个进程都会维护一份自己的Sharepreference的副本,结束时同不
+	存储Sharepreference的文件过大的问题, 	
+		1. 阻塞主线程.
+		2. 解析比较大的对象时,会产生临时对象,频繁的GC 大量的Gc造成内存抖动
+		
+	内存对象序列化
+		1.Serializeble  本地存储时用.会产生大量临时变量
+		2. Parcelable  跨进程传递时更方便
+		
+	UI线程做繁重的操作
+	
+MVC 
+	M:业务逻辑处理
+	V:处理数据展示部分
+	C:control Activity处理用户交互问题 
+	
+	便于UI显示 和业务逻辑的分层  时项目有了很好的可扩展和维护行
+	
+MVP
+	M:业务逻辑和实体模型
+	V:对应Activity负责View的绘制及用户交互
+	P:完成View和Model间的交互
+	
+	MVC 和 MVP最大的区别是 V,M  是否可以相互操作
+	
+MVVM	
+	M:业务逻辑和实体模型
+	V:对应Activity负责View的绘制及用户交互 没有业务逻辑 
+	ViewModel 业务逻辑在这处理  View与Model间的交互
+	
+	数据绑定
+	
+### Android插件化
+	1. 动态加载apk DexClassLoader apk文件中的字节码  PathClassLoader 加载目录中的字节码
+	2. 资源加载 Assetmanager
+	3. 代码加载 生命周期反射调用
+
+### 热更新
+	热更新流程
+	1. 线上检测到严重的crash
+	2. 拉出bugfix分支并在分支上修复问题
+	3. jenkins构建和补丁生成
+	4. app通过推送或者主动拉取补丁文件
+	5. 将bugfix代码合到master上
+	
+主流更新框架介绍
+	Dexposed alibaba aop思想 hook形式  基动态类加载技术,运行时app可以加载一小段经过编译的代码
+
+	AndFix 思想同Dexposed相似 专注于热修复,没有其他功能
+	
+	Nuwa 基于Android分包技术
+
+### 热更新原理
+		
+	1. PathClassLoader
+	2. DexClassLoader
+	
+原理
+	dexElements 数组会在BaseClassloader中加载好,将需要替换的类打包成dex包 放到dexElements数组最前面 BaseClassload加载到后就不会加载后面的Dex包中的类实现了替换功能.
+
+进程保活 
+
+	1. android进程的优先级 
+		前台进程 可见进程 后台进程(LRU算法) 服务进程 空进程(缓存用)
+	2. android进程的回收策略
+	3. 进程保活方案
+
+### 进程回收策略
+	1. Low memory killer: 定时进行检查 通过一些比较复杂的评分机制,对进行打分,然后将分数高的进程判定为bad进程,杀死并释放内存.
+	2. OOM_ODJ:判断进程优先级
+
+### 保活方案
+	1. 利用系统广播拉活  开机广播,
+	2. 利用系统Service 机制拉活 第一次杀死5秒重启 第二次10秒 第三次20秒 
+	3. 利用native进程拉活,5.0之后就失效了 定时监控
+	4. 利用JobScheduler机制拉活
+	5. 利用账号同步机制拉活. 	
